@@ -31,7 +31,7 @@
                                     <option value="">In stock</option>
                                 </select>
                             </div>
-                            <p>Showing 1–12 of 20 result</p>
+                            <p>Showing {{start}}–{{start}} of {{total}} result</p>
                         </div>
                         <div class="shop-tab nav">
                             <a class="active" href="#shop-1" data-toggle="tab">
@@ -66,7 +66,7 @@
                                                 <div class="ht-product-content">
                                                     <div class="ht-product-content-inner">
                                                         <div class="ht-product-categories"><a href="#">{{good.brand.title}}</a></div>
-                                                        <h4 class="ht-product-title"><a href="product-details.html">{{good.title}}</a></h4>
+                                                        <h4 class="ht-product-title"><a href="/good/{{good.id}}/">{{good.title}}</a></h4>
                                                         <div class="ht-product-price">
                                                             <span class="new">${{good.price}}</span>
                                                             <span class="old">${{good.old_price}}</span>
@@ -113,7 +113,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4">
                                             <div class="product-list-img">
-                                                <a href="product-details.html">
+                                                <a href="/good/{{good.id}}/">
                                                     <img src="/media/{{good.logo}}" alt="Universal Product Style">
                                                 </a>
                                                 <div class="product-quickview">
@@ -123,7 +123,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8 align-self-center">
                                             <div class="shop-list-content">
-                                                <h3><a href="product-details.html">{{good.title}}</a></h3>
+                                                <h3><a href="/good/{{good.id}}/">{{good.title}}</a></h3>
                                                 <p>{{good.short_description}}</p>
                                                 <span>{{good.brand.title}}</span>
                                                 <div class="shop-list-price-action-wrap">
@@ -155,10 +155,11 @@
                         </div>
                         <div class="pro-pagination-style text-center mt-30">
                             <ul>
-                                <li><a class="prev" href="#"><i class="sli sli-arrow-left"></i></a></li>
-                                <li><a class="active" href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a class="next" href="#"><i class="sli sli-arrow-right"></i></a></li>
+                                {% if current_page != 1 %}<li><a class="prev" href="/catalog/{{active_category.id}}?page={{prev_page}}"><i class="sli sli-arrow-left"></i></a></li>{% endif %}
+                                {% for p in pages %}
+                                <li><a href ="/catalog/{{active_category.id}}?page={{p}}" {% if p == current_page %} class="active" {% endif %}>{{ p }}</a></li>
+                                {% endfor %}
+                                {% if current_page != pages_count %}<li><a class="next" href="/catalog/{{active_category.id}}?page={{next_page}}"><i class="sli sli-arrow-right"></i></a></li>{% endif %}
                             </ul>
                         </div>
                     </div>

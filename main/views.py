@@ -1,7 +1,5 @@
-from multiprocessing import context
-from re import search
-from turtle import title
-from unicodedata import category
+from math import ceil
+from tracemalloc import start
 from django.shortcuts import render
 from main.models import *
 
@@ -47,11 +45,13 @@ def catalogItemHandler(request, catalog_id):
 	is_discount  = request.GET.get('is_discount', None)
 	is_new  = request.GET.get('is_new', None)
 	stock  = request.GET.get('stock', None)
+	
 
-	# price = request.GET.get('price', None)
-	# if price & len(price.split('-'))==2:
-	# 	price_start = int(price.split('-')[0])
-	# 	price_stop = int(price.split('-')[1])
+	price = request.GET.get('price', None)
+	price_start, price_stop = None,None
+	if price and len(price.split('-'))==2:
+		price_start = int(price.split('-')[0])
+		price_stop = int(price.split('-')[1])
 
 	if search_value:
 		new_goods = []
@@ -103,25 +103,34 @@ def catalogItemHandler(request, catalog_id):
 	if stock:
 		new_goods = []
 		for g in goods:
-			if g.stock:
+			if g.stock > 0 :
 				new_goods.append(g)
 
 		goods = new_goods
 
-	# if price_start & price_stop:
-	# 	new_goods = []
-	# 	for g in goods:
-	# 		if g.price >= price_start & g.price <=price_stop:
-	# 			new_goods.append(g)
+	if price_start != None and price_stop:
+		new_goods = []
+		for g in goods:
+			if g.price >= price_start and g.price <=price_stop:
+				new_goods.append(g)
 
-	# 	goods = new_goods
+		goods = new_goods
 
 
-	
+	limit = int(request.GET.get('limit', 3))
+	current_page = int(request.GET.get('page', 1))
+	total =  len(goods)
+	pages_count = ceil (total/limit)
+	pages = range(1, pages_count+1)
+
+	stop = current_page*limit
+	start = stop - limit
+	prev_page = current_page - 1
+	next_page = current_page + 1
 
 	context = {
 		'categories': categories,
-		'goods': goods,
+		'goods': goods[start:stop],
 		'brands': brands,
 		'sizes': sizes,
 		'colors': colors,
@@ -134,7 +143,25 @@ def catalogItemHandler(request, catalog_id):
 		'stock':stock,
 		'is_discount':is_discount,
 		'is_new':is_new,
+		'pages': pages,
+		'current_page':current_page,
+		'pages_count':pages_count,
+		'prev_page':prev_page,
+		'next_page':next_page,
+		'start':start,
+		'stop':stop,
+		'total':total,
+		
 	}
 	return render(request, 'catalog.html', context)
+
+
+def goodHandler(request, good_id):
+	active_good = Good.objects.get(id=good_id)
+
+	context = {
+		'active_good':active_good,	
+	}
+	return render(request, 'product-details.html', context)
 
 
