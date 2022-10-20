@@ -1,5 +1,6 @@
 from math import ceil
 from tracemalloc import start
+from unicodedata import category
 from django.shortcuts import render
 from main.models import *
 
@@ -158,9 +159,14 @@ def catalogItemHandler(request, catalog_id):
 
 def goodHandler(request, good_id):
 	active_good = Good.objects.get(id=good_id)
+	categories = Category.objects.all()
+	related_products = Good.objects.filter(category__id = active_good.category.id).exclude(id = good_id)[:4]
 
 	context = {
-		'active_good':active_good,	
+		'active_good':active_good,
+		'categories':categories,
+		'related_products':related_products,
+
 	}
 	return render(request, 'product-details.html', context)
 
