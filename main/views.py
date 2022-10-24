@@ -1,7 +1,8 @@
 from math import ceil
+from os import stat
 from tracemalloc import start
 from unicodedata import category
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from main.models import *
 
 
@@ -171,3 +172,50 @@ def goodHandler(request, good_id):
 	return render(request, 'product-details.html', context)
 
 
+
+def cartHandler(request):
+	categories = Category.objects.all()
+
+	if not request.session.session_key:
+		request.session.create()
+	user_session_id = request.session.session_key
+
+
+	if request.POST:
+		return_url = request.POST.get('return_url', '')
+		action = request.POST.get('action', '')
+
+		if action == 'add_to_cart':
+			new_cart = None
+			good_id =  int(request.POST.get('good_id', 0))
+			amount =  float(request.POST.get('amount', 0))
+
+			open_carts = Cart.objects.filter(session_id = user_session_id).filter(status = 0)
+			if open_carts:
+				new_cart = open_carts[0]
+			else:
+				new_cart = Cart()
+				new_cart.session_id = user_session_id
+				new_cart.save()
+
+			cart_items =  CartItem.objects.filter(cart__id = new_cart.id).filter(status = 0).filter(good__id = good_id)
+
+			if cart_items:
+				new_cart_item = cart_items[0]
+				new_cart_item.amount += amount
+				new_cart_item.save()
+			else:
+				new_cart_item = CartItem()
+				new_cart_item.good_id = good_id
+				new_cart_item.cart_id = new_cart.id
+				new_cart_item.amount = amount
+				new_cart_item.price = new_cart_item.good.price
+				new_cart_item.save()
+
+
+		if return_url:
+			return redirect(return_url)
+	context = {
+		'categories': categories,
+	}
+	return render(request, 'cart.html', context)

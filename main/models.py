@@ -1,6 +1,5 @@
-from codecs import backslashreplace_errors
-from xmlrpc.client import Boolean
 from django.db import models
+from requests import session
 
 class Color(models.Model):
 	title = models.CharField(max_length=50, blank=True)
@@ -91,4 +90,40 @@ class Good(models.Model):
 	def __str__(self):
 		return f"{self.category}  ==>  {self.title}  ==> {self.color.title}  ==> {self.size	.title}"
 
-	
+
+class Cart(models.Model):
+	title = models.CharField(max_length = 200, blank = True)
+	email = models.CharField(max_length = 200, blank = True)
+	last_name = models.CharField(max_length = 200, blank = True)
+	first_name = models.CharField(max_length = 200, blank = True)
+	zip_code = models.CharField(max_length = 200, blank=True)
+	country = models.CharField(max_length = 200, blank = True)
+	city = models.CharField(max_length = 200, blank = True)
+	person = models.CharField(max_length = 200, blank = True)
+	phone = models.CharField(max_length = 200, blank = True)
+	address = models.CharField(max_length = 200, blank = True)
+	title = models.CharField(max_length = 200, blank = True)
+
+	is_accepted = models.BooleanField(default = False)
+	is_payed = models.BooleanField(default = False)
+	status = models.IntegerField(default = 0)
+
+	session_id = models.CharField(max_length = 200, blank = True)
+	amount = models.IntegerField(default=1)
+	discount = models.IntegerField(default=0)
+	orig_price = models.FloatField(default=0)
+	price = models.FloatField(default=0)
+
+	def __str__(self):
+		return f'{self.session_id}+ {self.title}'
+
+
+class CartItem(models.Model):
+	good = models.ForeignKey(Good, on_delete = models.CASCADE)
+	cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
+	amount = models.FloatField(default = 0)
+	price = models.FloatField(default=0)
+	status = models.IntegerField(default = 0) # 0 - created, -1 deleted
+
+	def __str__(self):
+		return f'{self.cart.id} {self.good.title} {self.amount}'

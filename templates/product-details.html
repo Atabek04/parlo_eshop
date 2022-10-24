@@ -110,20 +110,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pro-details-quality">
-                        <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                    <form action="/cart/" method="POST">
+                        <div class="pro-details-quality">
+                            <div class="cart-plus-minus">
+                                <input class="cart-plus-minus-box" type="text" name="amount" value="1">
+                            </div>
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="add_to_cart">
+                            <input type="hidden" name="good_id" value="{{active_good.id}}">
+                            <input type="hidden" name="return_url" value="/good/{{active_good.id}}/">
+                            <div class="pro-details-cart btn-hover">
+                                <button>Add To Cart</button>
+                            </div>
+                        
+                            
+                            <div class="pro-details-wishlist">
+                                <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                            </div>
+                            <div class="pro-details-compare">
+                                <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                            </div>
+                        
                         </div>
-                        <div class="pro-details-cart btn-hover">
-                            <a href="#">Add To Cart</a>
-                        </div>
-                        <div class="pro-details-wishlist">
-                            <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                        </div>
-                        <div class="pro-details-compare">
-                            <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                        </div>
-                    </div>
+                    </form>
                     <div class="pro-details-meta">
                         <span>Categories :</span>
                         <ul>
