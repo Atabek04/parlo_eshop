@@ -6261,11 +6261,13 @@ textarea:focus {
 .product-details-content .pro-details-quality .pro-details-cart a:hover {
     border: none;
 }
-.product-details-content .pro-details-quality .pro-details-wishlist a {
+.product-details-content .pro-details-quality .pro-details-wishlist a , .pro-details-wishlist button {
+    border: none;
+    background-color: white;
     font-size: 18px;
     color: #1f2226;
 }
-.product-details-content .pro-details-quality .pro-details-wishlist a:hover {
+.product-details-content .pro-details-quality .pro-details-wishlist a:hover, .pro-details-wishlist button:hover {
     color: #ff3535;
 }
 .product-details-content .pro-details-quality .pro-details-compare a {
@@ -8949,6 +8951,17 @@ h3.cart-page-title {
 .cart-table-content table tbody > tr td.product-remove a:hover {
     color: #ff3535;
 }
+
+.cart-table-content table tbody > tr td.product-remove button {
+    border: none;
+    background-color: white;
+    font-size: 17px;
+    margin: 0 13px;
+}
+.cart-table-content table tbody > tr td.product-remove button:hover {
+    color: #ff3535;
+}
+
 .cart-table-content table tbody > tr td.product-wishlist-cart > a {
     background-color: #ff3535;
     color: #fff;
@@ -8993,6 +9006,27 @@ h3.cart-page-title {
     padding: 18px 40px 17px;
     text-transform: uppercase;
 }
+
+.cart-shiping-update-wrapper .cart-shiping-update > a,
+.cart-shiping-update-wrapper .cart-clear > form > button,
+.cart-shiping-update-wrapper .cart-clear > a {
+    background-color: #f2f2f2;
+    border: none;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 18px 40px 17px;
+    text-transform: uppercase;
+}
+
+.cart-shiping-update-wrapper .cart-shiping-update > a:hover,
+.cart-shiping-update-wrapper .cart-clear > form > button:hover,
+.cart-shiping-update-wrapper .cart-clear > a:hover {
+    background-color: #ff3535;
+    color: #fff;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .cart-shiping-update-wrapper .cart-shiping-update > a,
     .cart-shiping-update-wrapper .cart-clear > button,
@@ -9118,7 +9152,7 @@ h3.cart-page-title {
 .discount-code-wrapper .tax-wrapper .tax-select-wrapper .tax-select select {
     -moz-appearance: none;
     -webkit-appearance: none;
-    background: #fff url("../../static/icon-img/cart.png") no-repeat scroll
+    background: #fff url("../../static/img/cart/cart-1.svg") no-repeat scroll
         right 18px center;
     border: 1px solid #ebebeb;
     -webkit-box-shadow: none;
@@ -10898,7 +10932,8 @@ h3.cart-page-title {
     input {
     margin-top: 18px;
 }
-.your-order-area .Place-order a {
+.your-order-area .Place-order a, .your-order-area .Place-order button {
+    border: none;
     background-color: #ff3535;
     font-size: 12px;
     display: block;
@@ -10912,9 +10947,10 @@ h3.cart-page-title {
     font-weight: 600l;
     text-align: center;
 }
-.your-order-area .Place-order a:hover {
+.your-order-area .Place-order a:hover, .your-order-area .Place-order button:hover {
     background-color: #212529;
 }
+
 
 @media only screen and (max-width: 767px) {
     .checkout-main-area.pb-70 {

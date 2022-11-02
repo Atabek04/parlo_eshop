@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<div class="breadcrumb-area pt-35 pb-35 bg-gray">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="active">compare page </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- compare main wrapper start -->
+<div class="compare-page-wrapper pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Compare Page Content Start -->
+                <div class="compare-page-content-wrap">
+                    <div class="compare-table table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <tbody>
+                            <tr>
+                                <td class="first-column">Product</td>
+                                {% for ci in compare_list %}
+                                    <td class="product-image-title">
+                                        <a href="good/{{ci.good.id}}" class="image">
+                                            <img style="width: 350px;" class="img-fluid" src="/media/{{ci.good.logo}}/" alt="Compare Product">
+                                        </a>
+                                        <a href="#" class="category">{{ci.good.category.title}}</a>
+                                        <a href="single-product-sale.html" class="title">{{ci.good.title}}</a>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Description</td>
+                                {% for ci in compare_list %}
+                                    <td class="pro-desc">
+                                        <p>{{ci.good.description}}</p>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Price</td>
+                                {% for ci in compare_list %}
+                                    <td class="pro-price">${{ci.good.price}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Color</td>
+                                {% for ci in compare_list %}
+                                    <td class="pro-color">{{ci.good.color.title}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Stock</td>
+                                {% for ci in compare_list %}
+                                <td class="pro-stock"> {% if ci.good.stock > 0 %} In Stock {% else %} Stock Ou {% endif %}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Rating</td>
+                                {% for ci in compare_list %}
+                                <td class="pro-ratting">
+                                    {% if ci.good.rating > 0 %}
+                                    <i class="sli sli-star"></i>
+                                    {% endif %}
+                                    {% if ci.good.rating > 1 %}
+                                    <i class="sli sli-star"></i>
+                                    {% endif %}
+                                    {% if ci.good.rating > 2 %}
+                                    <i class="sli sli-star"></i>
+                                    {% endif %}
+                                    {% if ci.good.rating > 3 %}
+                                    <i class="sli sli-star"></i>
+                                    {% endif %}
+                                    {% if ci.good.rating > 4 %}
+                                    <i class="sli sli-star"></i>
+                                    {% endif %}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Add to cart</td>
+                                {% for ci in compare_list %}
+                            <td class="pro-remove">
+                                    <form action="/cart/" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="add_to_cart">
+                                        <input type="hidden" name="good_id" value="{{ci.good.id}}">
+                                        <input type="hidden" name="amount" value="1">
+                                        <input type="hidden" name="return_url" value="{% url 'compare' %}">
+                                        <button style="background-color: none; border: none;" class="check-btn">Add to Cart</button>
+                                    </form>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="first-column">Remove</td>
+                                {% for ci in compare_list %}
+                                <td class="pro-remove">
+                                    <form action="/cart/" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="remove_from_compare_list">
+                                        <input type="hidden" name="good_id" value="{{ci.good.id}}">
+                                        <input type="hidden" name="amount" value="1">
+                                        <input type="hidden" name="return_url" value="{% url 'compare' %}">
+                                        <button><i class="sli sli-trash"></i></button>
+                                    </form>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Compare Page Content End -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

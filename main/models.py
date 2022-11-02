@@ -1,5 +1,6 @@
 from django.db import models
 from requests import session
+from datetime import datetime
 
 class Color(models.Model):
 	title = models.CharField(max_length=50, blank=True)
@@ -113,6 +114,7 @@ class Cart(models.Model):
 	discount = models.IntegerField(default=0)
 	orig_price = models.FloatField(default=0)
 	price = models.FloatField(default=0)
+	crated_at = models.DateTimeField(default=datetime.now())
 
 	def __str__(self):
 		return f'{self.session_id}+ {self.title}'
@@ -120,10 +122,36 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
 	good = models.ForeignKey(Good, on_delete = models.CASCADE)
-	cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
+	cart = models.ForeignKey('Cart', on_delete = models.CASCADE)
 	amount = models.FloatField(default = 0)
 	price = models.FloatField(default=0)
 	status = models.IntegerField(default = 0) # 0 - created, -1 deleted
+	all_price = models.FloatField(default = 0)
 
 	def __str__(self):
-		return f'{self.cart.id} {self.good.title} {self.amount}'
+		return f'{self.cart.id} - {self.good.title} - {self.amount}'
+
+
+class CompareItem(models.Model):
+	good = models.ForeignKey(Good, on_delete = models.CASCADE)
+	session_id = models.CharField(max_length = 200, blank = True)
+	status = models.IntegerField(default = 0)
+
+	def __str__(self):
+		return f'{self.session_id} {self.good.title}' 
+
+class WishItem(models.Model):
+	good = models.ForeignKey(Good, on_delete=models.CASCADE)
+	session_id = models.CharField(max_length = 200, blank = True)
+	status = models.IntegerField(default = 0)
+
+	def __str__(self):
+		return f'{self.session_id} {self.good.title}' 
+
+
+class Subscriber(models.Model):
+	email = models.CharField(max_length=200)
+	status = models.IntegerField(default = 0)
+
+	def __str__(self):
+		return self.email

@@ -110,6 +110,8 @@
                             </div>
                         </div>
                     </div>
+                    <div class="pro-details-quality">
+                    <!-- =============== FORM ================ -->
                     <form action="/cart/" method="POST">
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
@@ -122,17 +124,32 @@
                             <div class="pro-details-cart btn-hover">
                                 <button>Add To Cart</button>
                             </div>
-                        
-                            
-                            <div class="pro-details-wishlist">
-                                <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                            </div>
-                            <div class="pro-details-compare">
-                                <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                            </div>
-                        
                         </div>
                     </form>
+
+                    <form action="/cart/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add_to_wish_list">
+                        <input type="hidden" name="good_id" value="{{active_good.id}}">
+                        <input type="hidden" name="return_url" value="/good/{{active_good.id}}/">
+
+                        <div class="pro-details-wishlist">
+                            <button style="background-color: white; border:none; " title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></button>
+                        </div>
+                    </form>
+
+                    <form action="/cart/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add_to_compare_list">
+                        <input type="hidden" name="good_id" value="{{active_good.id}}">
+                        <input type="hidden" name="return_url" value="/good/{{active_good.id}}/">
+
+                        <div class="pro-details-compare">
+                            <button style="background-color: white; border:none; " title="Add To Compare" href="#"><i class="sli sli-refresh"></i></>
+                        </div>
+                    </form>
+                    
+                    </div>
                     <div class="pro-details-meta">
                         <span>Categories :</span>
                         <ul>

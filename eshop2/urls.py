@@ -9,7 +9,15 @@ urlpatterns = [
     path('catalog/', catalogHandler, name='catalog'),
     path('catalog/<int:catalog_id>/', catalogItemHandler),
     path('good/<int:good_id>/', goodHandler, name='product-details'),  
-    path('cart/', cartHandler),
+    path('cart/', cartHandler, name = 'cart'),
+    path('checkout/', checkoutHandler , name='checkout' ),
+    path('checkout/success/', checkoutSuccessHandler , name='checkout_success' ),
+    path('orders/', ordersHandler, name='orders'),
+    path('orders/<int:order_id>/', ordersItemHandler),
+    path('compare/', compareHandler, name='compare'),
+    path('wishlist/', wishlistHandler, name='wishlist'),
+    path('search/', searchHandler),
+
 
 
     path('admin/', admin.site.urls),

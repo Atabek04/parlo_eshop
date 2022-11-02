@@ -53,13 +53,13 @@
                                         <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                             <div class="ht-product-inner">
                                                 <div class="ht-product-image-wrap">
-                                                    <a href="product-details.html" class="ht-product-image"> <img src="/media/{{good.logo}}" alt="Universal Product Style"> </a>
+                                                    <a href="/good/{{good.id}}" class="ht-product-image"> <img src="/media/{{good.logo}}" alt="Universal Product Style"> </a>
                                                     <div class="ht-product-action">
                                                         <ul>
                                                             <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
+                                                            <li><a href="#" class="js-add-to-wish-list" data-id ="{{good.id}}"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
+                                                            <li><a href="#" class="js-add-to-compare-list" data-id ="{{good.id}}"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
+                                                            <li><a href="#" class="js-add-to-cart" data-id ="{{good.id}}"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -90,10 +90,10 @@
                                                     </div>
                                                     <div class="ht-product-action">
                                                         <ul>
-                                                            <li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
+                                                            <li><a href="#" class="js-add-to-cart" data-id ="{{good.id}}><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
+                                                            <li><a href="#" class="js-add-to-wish-list" data-id ="{{good.id}}><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
+                                                            <li><a href="#" class="js-add-to-compare-list" data-id ="{{good.id}}><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
+                                                            <li><a href="#" class="js-add-to-cart" data-id ="{{good.id}}><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="ht-product-countdown-wrap">
@@ -141,9 +141,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="ht-product-list-action">
-                                                        <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                        <a class="list-cart" title="Add To Cart" href="#"><i class="sli sli-basket-loaded"></i> Add to Cart</a>
-                                                        <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                                        <a class="list-wishlist js-add-to-wish-list" data-id ="{{good.id}} title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                                        <a class="list-cart js-add-to-cart" data-id ="{{good.id}} title="Add To Cart" href="#"><i class="sli sli-basket-loaded"></i> Add to Cart</a>
+                                                        <a class="list-refresh js-add-to-compare-list" data-id ="{{good.id}} title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -305,4 +305,6 @@
 <script src="/static/js/ajax-mail.js"></script>
 <!-- Main JS -->
 <script src="/static/js/main.js"></script>
+
+<script src="/static/js/manage.js"></script>
 {% endblock script %}
